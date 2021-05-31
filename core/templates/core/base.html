@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<title>{% block title %}{% endblock %} | Inicio</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<link rel="stylesheet" href="{% static '/core/css/main.css' %}">
+	<link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+</head>
+<body>
+	<!-- SideBar -->
+	<section class="full-box cover dashboard-sideBar">
+		<div class="full-box dashboard-sideBar-bg btn-menu-dashboard"></div>
+		<div class="full-box dashboard-sideBar-ct">
+			<!--SideBar Title -->
+			<div class="full-box text-uppercase text-center text-titles dashboard-sideBar-title">
+				Administrador de cobros <i class="zmdi zmdi-close btn-menu-dashboard visible-xs"></i>
+			</div>
+			<!-- SideBar User info -->
+			<div class="full-box dashboard-sideBar-UserInfo">
+				<figure class="full-box">
+					<figcaption class="text-center text-titles">Iniciar Sesión modo administrador</figcaption>
+				</figure>
+				<ul class="full-box list-unstyled text-center">
+					<li>
+						<a href="/admin/">
+							<i class="zmdi zmdi-accounts"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<!-- SideBar Menu -->
+			<ul class="list-unstyled full-box dashboard-sideBar-Menu">
+				<li>
+					<a href="#!" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-account-add zmdi-hc-fw"></i> Alumnos<i class="zmdi zmdi-caret-down pull-right"></i>
+					</a>
+					<ul class="list-unstyled full-box">
+						<li>
+							<a href="{%url 'student'%}"><i class="zmdi zmdi-folder zmdi-hc-fw"></i>Expediente</a>
+						</li>
+						<li>
+							<a href="{%url 'history'%}"><i class="zmdi zmdi-time-restore zmdi-hc-fw"></i>Historial de pagos</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#!" class="btn-sideBar-SubMenu">
+						<i class="zmdi zmdi-card zmdi-hc-fw"></i> Pagos<i class="zmdi zmdi-caret-down pull-right"></i>
+					</a>
+					<ul class="list-unstyled full-box">
+						<li>
+							<a href="{%url 'payment'%}"><i class="zmdi zmdi-money-box zmdi-hc-fw"></i> Registrar un pago</a>
+						</li>
+						<li>
+							<a href="{%url 'orden'%}"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Sacar orden de cobro</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</section>
+	
+
+	<!-- Content page-->
+	<section class="full-box dashboard-contentPage">
+		<!-- NavBar -->
+		<nav class="full-box dashboard-Navbar">
+			<ul class="full-box list-unstyled text-right">
+				<li class="pull-left">
+					<a href="#!" class="btn-menu-dashboard"><i class="zmdi zmdi-more-vert"></i></a>
+				</li>
+			</ul>
+		</nav>
+		<!-- Content page -->
+	{% block content %}{% endblock %}
+
+	
+	
+	<!--====== Scripts -->
+	<script src="{% static 'core/js/jquery-3.1.1.min.js' %}"></script>
+	<script src="{% static 'core/js/sweetalert2.min.js' %}"></script>
+	<script src="{% static 'core/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'core/js/material.min.js' %}"></script>
+	<script src="{% static 'core/js/ripples.min.js' %}"></script>
+	<script src="{% static 'core/js/jquery.mCustomScrollbar.concat.min.js' %}"></script>
+	<script src="{% static 'core/js/main.js' %}"></script>
+	<script>
+		$.material.init();
+	</script>
+</body>
+</html>
