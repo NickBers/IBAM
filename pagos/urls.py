@@ -24,7 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls, name="admin"),
     path('payments/', views.payments, name="payment"),
     path('create-pdf/', views.pdf_report, name="create-pdf"),
-    path('history', views.history, name="history")
+    path('history', views.history, name="history"),
+    path('create-payments', views.PostPayments, name="create-payments")
+
 
 
 ]

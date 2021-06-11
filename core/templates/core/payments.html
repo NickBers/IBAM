@@ -22,37 +22,27 @@
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-xs-12 col-md-10 col-md-offset-1">
-									<form action="">
-										<div class="form-group label-floating">
-										  <label class="control-label">Matricula</label>
-										  <textarea class="form-control"></textarea>
-										</div>
-										<div class="form-group label-floating">
-										  <label class="control-label">Nombre</label>
-										  <input class="form-control" type="text">
-										</div>
-										<div class="form-group label-floating">
-										  <label class="control-label">Subscription</label>
-										  <input class="form-control" type="text">
-										</div>
+									<form action="{%url 'create-payments'%}" method="POST">
+											{% csrf_token %}
 										<div class="form-group">
-										  <label class="control-label">Fecha</label>
-										  <input class="form-control" type="date">
+											<label class="control-label">Nombre del alumno</label>	
+											<select class="form-control" name="nombre">
+											{%for student in students%}
+											  <option value="{{student.id_alumno}}">{{student.name}} {{student.lastname}} | Matricula: {{student.id_alumno}}</option>
+											{%endfor%}
+											</select>	
 										</div>
 										<div class="form-group">
 											<label class="control-label">Tipo de pago</label>
-											<select class="form-control">
-											  <option>Cuatrimestre</option>
-											  <option>Renovacion de credencial</option>
-											  <option>Adeudos</option>
+											<select class="form-control" name="tipo">
+											{%for detail in details%}
+											  <option value="{{detail.id}}">{{detail.tipe_pay}}</option>
+											{%endfor%}
 											</select>
+											
 										</div>
-										<div class="form-group">
-											<label class="control-label">Monto</label>
-											<input class="form-control" type="number" placeholder="$">
-										  </div>
 										<p class="text-center">
-											<button href="{% url 'create-pdf'%}" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Registrar Pago</button>
+											<input type="submit" class="btn btn-info btn-raised btn-sm"/>
 										</p>
 									</form>
 								</div>
@@ -62,74 +52,33 @@
 					  <div class="tab-pane fade" id="list">
 						<div class="table-responsive">
 							<table class="table table-hover text-center">
+							
 								<thead>
-									<tr>
-										<th class="text-center">#</th>
-										<th class="text-center">Student</th>
-										<th class="text-center">Amount</th>
-										<th class="text-center">Subscription</th>
-										<th class="text-center">Pending</th>
-										<th class="text-center">Date</th>
-										<th class="text-center">Period</th>
-										<th class="text-center">Update</th>
-										<th class="text-center">Delete</th>
+									
+									<tr class="table-primary">
+										<th class="text-center">Matricula</th>
+										<th class="text-center">Nombre</th>
+										<th class="text-center">Apellido</th>
+										<th class="text-center">Tipo de pago</th>
+										<th class="text-center">Cantidad</th>
+										<th class="text-center">Fecha</th>
+										<th class="text-center">Editar</th>
+										<th class="text-center">Eliminar</th>
 									</tr>
 								</thead>
 								<tbody>
+									{%for payment in payments%}
 									<tr>
-										<td>1</td>
-										<td>Carlos Alfaro</td>
-										<td>$40</td>
-										<td>$40</td>
-										<td>$0</td>
-										<td>01/01/2017</td>
-										<td>Period 1</td>
+										<td>{{payment.id}}</td>
+										<td>{{payment.student.name}}</td>
+										<td>{{payment.student.lastname}}</td>
+										<td>{{payment.details.tipe_pay}}</td>
+										<td>{{payment.details.amount}} $</td>
+										<td>{{payment.created}}</td>
 										<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
 										<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
 									</tr>
-									<tr>
-										<td>2</td>
-										<td>Claudia Rodriguez</td>
-										<td>$40</td>
-										<td>$40</td>
-										<td>$0</td>
-										<td>01/01/2017</td>
-										<td>Period 1</td>
-										<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-										<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>Alicia Melendez</td>
-										<td>$40</td>
-										<td>$40</td>
-										<td>$0</td>
-										<td>01/01/2017</td>
-										<td>Period 1</td>
-										<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-										<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-									</tr>
-									<tr>
-										<td>1</td>
-										<td>Sarai Mercado</td>
-										<td>$40</td>
-										<td>$40</td>
-										<td>$0</td>
-										<td>01/01/2017</td>
-										<td>Period 1</td>
-										<td><a href="#!" class="btn btn-success btn-raised btn-xs"><i class="zmdi zmdi-refresh"></i></a></td>
-										<td><a href="#!" class="btn btn-danger btn-raised btn-xs"><i class="zmdi zmdi-delete"></i></a></td>
-									</tr>
-								</tbody>
-							</table>
-							<ul class="pagination pagination-sm">
-								  <li class="disabled"><a href="#!">«</a></li>
-								  <li class="active"><a href="#!">1</a></li>
-								  <li><a href="#!">2</a></li>
-								  <li><a href="#!">3</a></li>
-								  <li><a href="#!">4</a></li>
-								  <li><a href="#!">5</a></li>
-								  <li><a href="#!">»</a></li>
+									{%endfor%}
 							</ul>
 						</div>
 					  </div>
