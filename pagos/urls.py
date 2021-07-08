@@ -19,13 +19,16 @@ from core import views
 
 urlpatterns = [
     path('students/', views.students, name="student"),
-    path('', views.home, name="home"),
+    path('', views.home, name="index"),
     path('orden/', views.ordenPayments, name="orden"),
     path('admin/', admin.site.urls, name="admin"),
     path('payments/', views.payments, name="payment"),
-    path('create-pdf/', views.pdf_report, name="create-pdf"),
+    path('create-pdf', views.pdf_report, name="create-pdf"),
     path('history', views.history, name="history"),
-    path('create-payments', views.PostPayments, name="create-payments")
+    path('create-payments', views.PostPayments, name="create-payments"),
+    path('create-ordens', views.PostOrden, name="create-ordens"),
+    path('pre-orden/', views.PreOrden, name="pre-orden")
+
 
 
 

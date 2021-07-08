@@ -21,64 +21,28 @@
 						<div class="container-fluid">
 							<div class="row">
 								<div class="col-xs-12 col-md-10 col-md-offset-1">
-									<form action="">
-										<div class="form-group label-floating">
-										  <label class="control-label">Matricula</label>
-										  <input class="form-control" type="text">
-										</div>
-										<div class="form-group label-floating">
-										  <label class="control-label">Nombre</label>
-										  <input class="form-control" type="text">
-										</div>
-										<div class="form-group">
-											<label class="control-label">Carrera</label>
-											<select class="form-control">
-											<option>Seleccione una carrera...</option>
-											  <option>TSU EN ADMINISTRACIÓN ÁREA CAPITAL HUMANO</option>
-											  <option>TSU EN ADMINISTRACIÓN ÁREA FORMULACIÓN Y EVALUACIÓN DE PROYECTOS</option>
-											  <option>TSU EN AGRICULTURA SUSTENTABLE Y PROTEGIDA</option>
-											  <option>TSU EN CONTADURÍA</option>
-											  <option>TSU EN DESARROLLO DE NEGOCIOS ÁREA MERCADOTECNIA</option>
-											  <option>TSU EN MANTENIMIENTO ÁREA INDUSTRIAL</option>
-											  <option>TSU EN MECATRÓNICA ÁREA AUTOMATIZACIÓN</option>
-											  <option>TSU EN PROCESOS ALIMENTARIOS</option>
-											  <option>TSU EN PROCESOS INDUSTRIALES ÁREA MANUFACTURA</option>
-											  <option>TSU EN TECNOLOGÍAS DE LA INFORMACIÓN ÁREA DESARROLLO DE SOFTWARE MULTIPLATAFORMA</option>
-											  <option>TECNOLOGÍAS DE LA INFORMACIÓN ÁREA INFRAESTRUCTURA DE REDES DIGITALES</option>
-											</select>
-										</div>
-										<div class="form-group">
-											<label class="control-label">Tipo de pago</label>
-											<select class="form-control">
-												<option>Seleccione el pago que quiere realizar...</option>	
-											  <option>Cuatrimestre</option>
-											  <option>Renovacion de credencial</option>
-											  <option>Adeudos</option>
-											</select>
-										</div>
-										<div class="form-group">
-											<label class="control-label">Cuatrimestre</label>
-											<select class="form-control">
-												<option>Seleccione cuatrimestre...</option>
-											  <option>1</option>
-											  <option>2</option>
-											  <option>3</option>
-											  <option>4</option>
-											  <option>5</option>
-											  <option>6</option>
-											  <option>7</option>
-											  <option>8</option>
-											  <option>9</option>
-											  <option>10</option>
-											</select>
-										</div>
-										<div class="form-group">
-											<label class="control-label">Monto</label>
-											<input class="form-control" type="number" placeholder="$">
-										  </div>
-										<p class="text-center">
-											<button href="{%url 'create-pdf'%}" class="btn btn-info btn-raised btn-sm"><i class="zmdi zmdi-floppy"></i> Generar PDF</button>
-										</p>
+									<form action="{%url 'create-ordens'%}" method="POST">
+										{% csrf_token %}
+									<div class="form-group">
+										<label class="control-label">Nombre del alumno</label>	
+										<select class="form-control" name="nombre">
+										{%for student in students%}
+										  <option value="{{student.id_alumno}}">{{student.name}} {{student.lastname}} | Matricula: {{student.id_alumno}}</option>
+										{%endfor%}
+										</select>	
+									</div>
+									<div class="form-group">
+										<label class="control-label">Tipo de pago</label>
+										<select class="form-control" name="tipo">
+										{%for detail in details%}
+										  <option value="{{detail.id}}">{{detail.tipe_pay}}</option>
+										{%endfor%}
+										</select>
+										
+									</div>
+									<p class="text-center">
+										<input type="submit" class="btn btn-info btn-raised btn-sm"/>
+									</p>
 									</form>
 								</div>
 							</div>

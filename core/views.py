@@ -6,9 +6,10 @@ from django.template.loader import get_template
 from xhtml2pdf import pisa
 from django.contrib.staticfiles import finders
 from .models import Beca,Detail,Group,Orden,Student,Payment
+from django.contrib import messages
 
 def home(request):
-    return render(request, "core/home.html")
+    return render(request, "core/index.html")
     
 #Funciones de pagos
 def payments(request):
@@ -32,8 +33,8 @@ def PostPayments(request):
             student_id=id_student,
             details_id=id_details
         )
-
         payments.save()
+        messages.success(request,'Pago Realizado')
         return redirect('history')
 #Mostrar alumnos
 
@@ -45,14 +46,44 @@ def students(request):
     return render(request, "core/student.html")
 
 def ordenPayments(request):
-    return render(request, "core/ordenpayment.html")
+    students=Student.objects.all()
+    details=Detail.objects.all()
+    payments=Payment.objects.all()
+    return render(request, "core/ordenpayment.html", {
+        'students':students,
+        'details':details,
+        'payments':payments
+         })
+
+def PostOrden(request):
+    if request.method == 'POST':
+        id_student=request.POST.get('nombre')
+        id_details=request.POST.get('tipo')
+    
+        ordens=Orden(
+            student_id=id_student,
+            details_id=id_details
+        )
+        ordens.save()
+        messages.success(request,'Revise La informacion')
+        return redirect('pre-orden')
+
+    
+
+def PreOrden(request):
+    ordens=Orden.objects.all()
+    return render(request, "core/preorder.html",{'ordens': ordens})
 
 def pdf_report(request):
+    ordens=Orden.objects.all()
     template_path = 'core/pdf.html'
-    context = {'myvar': 'this is your template context'}
+    context = {
+        'ordens': ordens,
+        'comp':{'name':'Academia Costa del Pacifico','ruc':'999999','Address':'California'}
+    }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    response['Content-Disposition'] = 'filename="report.pdf"'
     # find the template and render it.
     template = get_template(template_path)
     html = template.render(context)

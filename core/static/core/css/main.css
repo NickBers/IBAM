@@ -35,7 +35,7 @@
 }
 /*============ Estilos generales*/
 body, html{
-	background-color: rgb(223, 176, 176);
+	background-color: rgba(165, 236, 221, 0.4);
 	width: 100%;
 	height: 100%;
 	margin: 0;
@@ -68,9 +68,9 @@ body, html{
 	width: 90%;
 	max-width: 300px;
 	padding: 15px;
-	box-shadow: 0 0 3px rgba(165, 236, 221, 0.4);
+	box-shadow: 0 0 3px white;
 	border-radius: 0 0 2px 2px;
-	background-color: rgba(165, 236, 221, 0.4);
+	background-color: #67abee;
 }
 .logInForm p,
 .logInForm label{
