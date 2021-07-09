@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
 	<div class="page-header">
-	  <h1 class="text-titles"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Pre orden de pago</small></h1>
+	  <h1 class="text-titles"><i class="zmdi zmdi-money zmdi-hc-fw"></i> Orden de pago</small></h1>
 	</div>
 	{% if  messages%}
 		{%for message in messages%}
@@ -16,14 +16,14 @@
 		  	</div>
 		{%endfor%}
 	{%endif%}
-	<p class="lead">Historial de todos los pagos</p>
+	<p class="lead">Confirmacion de datos</p>
 </div>
 	<div></div>
 		<div class="table-responsive">
 			<table class="table table-hover text-center">
 			
 				<thead>
-					
+					{% csrf_token %}
 					<tr class="table-primary">
 						<th class="text-center">Matricula</th>
 						<th class="text-center">Nombre</th>
@@ -32,26 +32,27 @@
 						<th class="text-center">Cantidad</th>
 						<th class="text-center">N.Referencia</th>
 						<th class="text-center">Fecha</th>
+						<th class="text-center">Imprimir</th>
 					</tr>
 				</thead>
 				<tbody>
 					{%for orden in ordens%}
 					<tr>
-						<td>{{orden.id}}</td>
+						<td>{{orden.student.id_alumno}}</td>
 						<td>{{orden.student.name}}</td>
 						<td>{{orden.student.lastname}}</td>
 						<td>{{orden.details.tipe_pay}}</td>
 						<td>{{orden.details.amount}} $</td>
 						<td>{{orden.details.num_referencia}}</td>
 						<td>{{orden.created}}</td>
+						<td><a class="btn btn-info btn-raised btn-sm" href="{%url 'create-pdf' id=orden.id %}" role="button">Crear PDF</a></td>
 					</tr>
 			</ul>
 			{%endfor%}
 			
 		</div>
-		<p class="text-center">
-			<a class="btn btn-info btn-raised btn-sm" href="{%url 'create-pdf'%}" role="button">Crear PDF</a>
-		</p>
+
+			
 	</div>
 	
 	

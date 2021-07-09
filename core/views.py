@@ -65,21 +65,21 @@ def PostOrden(request):
             details_id=id_details
         )
         ordens.save()
-        messages.success(request,'Revise La informacion')
+        messages.success(request,'Revise que la informacion sea correcta antes de descargar el PDF')
         return redirect('pre-orden')
 
     
 
 def PreOrden(request):
-    ordens=Orden.objects.all()
+    ordens=Orden.objects.all().order_by('-id')[:1]  
     return render(request, "core/preorder.html",{'ordens': ordens})
 
-def pdf_report(request):
-    ordens=Orden.objects.all()
+def pdf_report(request,id):
+    ordens=Orden.objects.get(pk=id)
     template_path = 'core/pdf.html'
     context = {
         'ordens': ordens,
-        'comp':{'name':'Academia Costa del Pacifico','ruc':'999999','Address':'California'}
+        'comp':{'name':'Academia Costa del Pacifico','ruc':'ORDEN DE PAGO','Address':'Avenida, Universidad Tecnológica 1, Barrio la Villita, 75483 Tecamachalco, Pue.'}
     }
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')

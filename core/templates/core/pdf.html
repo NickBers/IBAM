@@ -39,11 +39,11 @@
 <p class="head">
     {{ comp.name|upper }}<br>
     {{ comp.ruc }}<br>
-    {{ comp.address|upper }}
+    {{ comp.Address|upper }}
 </p>
 <p>
-    <b>FACTURA:</b>1<br>
-    <b>FECHA DE VENTA:</b>3<br>
+    <b>FACTURA:</b>{{ordens.id}}<br>
+    <b>FECHA DE VENTA:</b>{{ordens.created}}<br>
 
 </p>
 <table id="invoice">
@@ -53,29 +53,27 @@
 		<th class="text-center">Nombre</th>
 		<th class="text-center">Apellido</th>
 		<th class="text-center">Tipo de pago</th>
-		<th class="text-center">Cantidad</th>
-		<th class="text-center">N.Referencia</th>
-		<th class="text-center">Fecha</th>
+		<th class="text-center">Importe</th>
     </tr>
     </thead>
     <tbody>
-	{%for orden in ordens%}
-        <tr {% if forloop.first %}style="padding-top: 3px;" {% endif %}>
-            <td class="text-center">{{orden.id}}</td>
-            <td class="text-center">{{orden.student.name}}</td>
-            <td>{{orden.student.lastname}}<td>
-            <td>{{orden.details.tipe_pay}}</td>
-            <td style="text-align: right;">${{orden.details.amount}}</td>
-			<td class="text-center">{{orden.details.num_referencia}}</td>
+        <tr style="padding-top: 7px;">
+            <td>{{ordens.student.id_alumno}}</td>
+            <td>{{ordens.student.name}}</td>
+            <td>{{ordens.student.lastname}}</td>
+            <td>{{ordens.details.tipe_pay}}</td>
+            <td>${{ordens.details.amount}}</td>
         </tr>
-    {% endfor %}
-    <tr style="border-top: 1px solid black; padding-top: 4px;">
-        <td colspan="4"><b>Bancos Participantes</b></td>
-        <td style="text-align: right">Banco Azteca, Banamex, Santandert</td>
+    <tr style="border-top: 1px solid black; padding-top: 10px;">
+        <td colspan="4"><b>Bancos Participantes</b>: Banco Azteca, Santander, Banamex, BVVA</td>
+        
     </tr>
-   
-    <tr style="padding-top: 0px;">
-        <td colspan="4"><b>TOTAL A PAGAR</b></td>
+    <tr style="padding-top: 10px;">
+        <td colspan="4"><b>Numero de Referencia</b>: {{ordens.details.num_referencia}}</td>
+        
+    </tr>
+    <tr style="padding-top: 10px;">
+        <td colspan="4"><b>TOTAL A PAGAR:</b> ${{ordens.details.amount}}</td>
         <td style="text-align: right"></td>
     </tr>
     </tbody>
