@@ -35,7 +35,7 @@
     }
 </style>
 <body>
-<img src="{{ icon }}" class="img-invoice">
+<img src="{% static '/core/media/st,small,507x507-pad,600x600,f8f8f8.u2.jpg' %}" class="img-invoice">
 <p class="head">
     {{ comp.name|upper }}<br>
     {{ comp.ruc }}<br>
@@ -43,7 +43,7 @@
 </p>
 <p>
     <b>FACTURA:</b>{{ordens.id}}<br>
-    <b>FECHA DE VENTA:</b>{{ordens.created}}<br>
+    <b>FECHA DE EMISIÓN:</b>{{ordens.created}}<br>
 
 </p>
 <table id="invoice">

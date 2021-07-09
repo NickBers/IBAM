@@ -25,7 +25,8 @@
 										{% csrf_token %}
 									<div class="form-group">
 										<label class="control-label">Nombre del alumno</label>	
-										<select class="form-control" name="nombre">
+										<select class="form-control" name="nombre" id="name">
+											<option value="0">Busque su nombre o matricula...</option>
 										{%for student in students%}
 										  <option value="{{student.id_alumno}}">{{student.name}} {{student.lastname}} | Matricula: {{student.id_alumno}}</option>
 										{%endfor%}
@@ -33,7 +34,8 @@
 									</div>
 									<div class="form-group">
 										<label class="control-label">Tipo de pago</label>
-										<select class="form-control" name="tipo">
+										<select class="form-control" name="tipo" id="tipo">
+											<option value="0">Seleccione el tipo de pago...</option>
 										{%for detail in details%}
 										  <option value="{{detail.id}}">{{detail.tipe_pay}}</option>
 										{%endfor%}
@@ -53,8 +55,16 @@
 		</div>
 	</div>
 </section>
+{%block script%}
+<script>
+	$(document).ready(function() {
+    $('#name').select2();
+	$('#tipo').select2();
+});</script>
+{%endblock%}
 
 {%endblock%}
+
 	
 
 	
